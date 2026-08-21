@@ -21,7 +21,7 @@ Treat the configured port as a **trusted private-LAN service**:
 - bounded concurrent connections and outstanding print jobs;
 - no automatic termination of another process when a port is occupied;
 - per-user atomic configuration storage;
-- bounded in-memory logs that do not record job contents;
+- bounded in-memory logs and per-session metadata logs that do not record job contents;
 - single-instance process guard.
 
 ## Reporting a vulnerability

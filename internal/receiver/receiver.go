@@ -1,6 +1,8 @@
 package receiver
 
 import (
+	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"net"
@@ -12,6 +14,8 @@ import (
 
 type PrintFunc func([]byte) error
 type LogFunc func(string)
+
+var errJobTooLarge = errors.New("print job exceeds configured size limit")
 
 type Server struct {
 	mu       sync.Mutex
@@ -125,19 +129,21 @@ func (s *Server) handle(conn net.Conn, c config.Config) {
 	remote := conn.RemoteAddr().String()
 	s.writeLog(fmt.Sprintf("[CONNECT] Client connected: %s", remote))
 	defer s.writeLog(fmt.Sprintf("[DISCONNECT] Client disconnected: %s", remote))
-	conn.SetReadDeadline(time.Now().Add(time.Duration(c.ReadTimeoutSeconds) * time.Second))
-	data, err := io.ReadAll(io.LimitReader(conn, c.MaxJobBytes+1))
+	data, idleTimeout, err := readJob(conn, c.MaxJobBytes, time.Duration(c.ReadTimeoutSeconds)*time.Second)
 	if err != nil {
+		if errors.Is(err, errJobTooLarge) {
+			s.writeLog(fmt.Sprintf("[REJECT] Job from %s exceeds the %d byte limit", remote, c.MaxJobBytes))
+			return
+		}
 		s.writeLog(fmt.Sprintf("[ERROR] Read from %s: %v", remote, err))
-		return
-	}
-	if int64(len(data)) > c.MaxJobBytes {
-		s.writeLog(fmt.Sprintf("[REJECT] Job from %s exceeds the %d byte limit", remote, c.MaxJobBytes))
 		return
 	}
 	if len(data) == 0 {
 		s.writeLog(fmt.Sprintf("[INFO] Connection test completed: %s", remote))
 		return
+	}
+	if idleTimeout {
+		s.writeLog(fmt.Sprintf("[INFO] Idle read timeout from %s after %d bytes; processing buffered job", remote, len(data)))
 	}
 	s.writeLog(fmt.Sprintf("[RECEIVE] Print job from %s: %d bytes", remote, len(data)))
 	s.mu.Lock()
@@ -158,6 +164,36 @@ func (s *Server) handle(conn net.Conn, c config.Config) {
 			s.writeLog(fmt.Sprintf("[ERROR] Print job from %s failed: %v", remote, err))
 			return
 		}
-		s.writeLog(fmt.Sprintf("[PRINT] Job from %s sent to printer successfully", remote))
+		s.writeLog(fmt.Sprintf("[PRINT] Job from %s accepted by Windows spooler", remote))
+	}
+}
+
+// readJob treats an idle timeout after at least one byte as an end-of-job
+// marker. The deadline is refreshed after every successful read, so active
+// large transfers are not truncated by an absolute connection timeout.
+func readJob(conn net.Conn, maxBytes int64, idleTimeout time.Duration) ([]byte, bool, error) {
+	var data bytes.Buffer
+	chunk := make([]byte, 32*1024)
+	for {
+		if err := conn.SetReadDeadline(time.Now().Add(idleTimeout)); err != nil {
+			return nil, false, err
+		}
+		n, err := conn.Read(chunk)
+		if n > 0 {
+			if int64(data.Len()+n) > maxBytes {
+				return nil, false, errJobTooLarge
+			}
+			_, _ = data.Write(chunk[:n])
+		}
+		if err == nil {
+			continue
+		}
+		if errors.Is(err, io.EOF) {
+			return data.Bytes(), false, nil
+		}
+		if netErr, ok := err.(net.Error); ok && netErr.Timeout() && data.Len() > 0 {
+			return data.Bytes(), true, nil
+		}
+		return nil, false, err
 	}
 }

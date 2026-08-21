@@ -53,5 +53,6 @@ func (a *App) shutdown(_ context.Context) {
 	if a.server != nil {
 		a.server.Stop()
 	}
+	a.closeSessionLog()
 	systray.Quit()
 }

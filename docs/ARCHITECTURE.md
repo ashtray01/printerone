@@ -32,10 +32,12 @@ events are recorded in a thread-safe, bounded in-memory log.
   UAC-confirmed action.
 - **Startup:** per-user `HKCU\Software\Microsoft\Windows\CurrentVersion\Run`.
 - **Configuration:** `%APPDATA%\PrinterOne\config.json`, written atomically.
+- **Diagnostics:** per-session metadata logs under
+  `%APPDATA%\PrinterOne\logs`; raw job contents are never persisted.
 
 ## Limits
 
-The receiver bounds each job, applies a read deadline, limits concurrent
+The receiver bounds each job, applies a resettable idle read deadline, limits concurrent
 connections and rejects work above the configured outstanding-job limit. The
 GUI retains at most 500 server log lines, 100 UI messages and 200 test-client
 messages.

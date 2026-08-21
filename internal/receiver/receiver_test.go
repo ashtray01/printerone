@@ -1,6 +1,7 @@
 package receiver
 
 import (
+	"errors"
 	"fmt"
 	"net"
 	"strings"
@@ -68,5 +69,38 @@ func TestServerLogsConnectionJobAndPrint(t *testing.T) {
 		case <-deadline:
 			t.Fatalf("missing log events: %#v", wanted)
 		}
+	}
+}
+
+func TestReadJobProcessesBufferedDataAfterIdleTimeout(t *testing.T) {
+	server, client := net.Pipe()
+	defer server.Close()
+	defer client.Close()
+
+	go func() { _, _ = client.Write([]byte("complete job without EOF")) }()
+	data, timedOut, err := readJob(server, 1024, 40*time.Millisecond)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !timedOut {
+		t.Fatal("expected idle timeout to terminate buffered job")
+	}
+	if got := string(data); got != "complete job without EOF" {
+		t.Fatalf("data=%q", got)
+	}
+}
+
+func TestReadJobRejectsOversizedJob(t *testing.T) {
+	server, client := net.Pipe()
+	defer server.Close()
+	defer client.Close()
+
+	go func() {
+		_, _ = client.Write([]byte("12345"))
+		_ = client.Close()
+	}()
+	_, _, err := readJob(server, 4, time.Second)
+	if !errors.Is(err, errJobTooLarge) {
+		t.Fatalf("err=%v", err)
 	}
 }

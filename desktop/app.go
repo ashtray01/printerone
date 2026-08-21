@@ -22,6 +22,7 @@ type App struct {
 	logsMu  sync.Mutex
 	logs    []string
 	lastLog string
+	fileLog *sessionLog
 }
 
 // NewApp creates a new App application struct
@@ -33,6 +34,12 @@ func NewApp() *App {
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
+	if fileLog, err := openSessionLog(); err == nil {
+		a.fileLog = fileLog
+		a.addLog("[INFO] Log file: " + fileLog.path)
+	} else {
+		a.addLog("[WARN] Persistent log unavailable: " + err.Error())
+	}
 	if loaded, err := config.Load(); err == nil {
 		a.config = loaded
 	}
@@ -45,7 +52,9 @@ func (a *App) startup(ctx context.Context) {
 	}
 	_ = config.Save(a.config)
 	a.localIP = preferredLocalIP()
-	a.server = receiver.New(a.config, func(data []byte) error { return printerwin.PrintRaw(a.config.PrinterName, data) }, a.addLog)
+	a.server = receiver.New(a.config, func(data []byte) error {
+		return printerwin.PrintRaw(a.config.PrinterName, data, printerwin.LogFunc(a.addLog))
+	}, a.addLog)
 	a.addLog("[INFO] PrinterOne is ready")
 	a.startTray()
 	if a.config.AutoStart && a.config.PrinterName != "" {
@@ -74,7 +83,11 @@ func (a *App) addLog(message string) {
 		return
 	}
 	a.lastLog = message
-	a.logs = append(a.logs, fmt.Sprintf("[%s] %s", time.Now().Format("15:04:05"), message))
+	line := fmt.Sprintf("[%s] %s", time.Now().Format("15:04:05"), message)
+	a.logs = append(a.logs, line)
+	if a.fileLog != nil {
+		_ = a.fileLog.write(message)
+	}
 	if len(a.logs) > 500 {
 		a.logs = append([]string(nil), a.logs[len(a.logs)-500:]...)
 	}
@@ -191,5 +204,5 @@ func (a *App) SendTestData(host string, port int) (int, error) {
 }
 
 func (a *App) Version() string {
-	return fmt.Sprintf("1.0.0 (Go)")
+	return fmt.Sprintf("1.0.1 (Go)")
 }
