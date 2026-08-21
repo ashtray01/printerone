@@ -1,20 +1,42 @@
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
 
-# Python environments and caches
-.venv/
-venv/
-env/
-__pycache__/
+# Local configuration and runtime data
+/config.json
+/logs/
+*.log
+*.tmp
+
+# Go build and test output
+*.exe
+*.test
+*.out
+/dist/
+/.gocache/
+/*-cache/
+/.*-cache/
+/desktop/build/bin/
+
+# Frontend dependencies and generated output
+/desktop/frontend/node_modules/
+/desktop/frontend/dist/
+/desktop/frontend/wailsjs/
+/desktop/frontend/package.json.md5
+
+# Platform templates not used by this Windows-only application
+/desktop/build/darwin/
+
+# Legacy/local files retained outside the published source tree
+/.venv/
+/venv/
+/env/
+/__pycache__/
 *.py[cod]
 .pytest_cache/
 .mypy_cache/
-
-# Local runtime data
-logs/
-*.log
-config.json
-raw_data_*.pdf
-
-# Build artefacts
-build/
-dist/
-*.spec
+/assets/screenshot.png
+/desktop/frontend/src/assets/images/

@@ -1,0 +1,64 @@
+{
+  "fixed": {
+    "file_version": "{{.Info.ProductVersion}}",
+    "product_version": "{{.Info.ProductVersion}}",
+    "type": "app"
+  },
+  "info": {
+    "0419": {
+      "CompanyName": "{{.Info.CompanyName}}",
+      "FileDescription": "PrinterOne — сетевой сервер печати",
+      "FileVersion": "{{.Info.ProductVersion}}",
+      "InternalName": "PrinterOne",
+      "LegalCopyright": "{{.Info.Copyright}}",
+      "OriginalFilename": "PrinterOne.exe",
+      "ProductName": "{{.Info.ProductName}}",
+      "ProductVersion": "{{.Info.ProductVersion}}",
+      "Comments": "Поддерживаемые языки: Русский, English, Deutsch, 简体中文, Español."
+    },
+    "0409": {
+      "CompanyName": "{{.Info.CompanyName}}",
+      "FileDescription": "PrinterOne — Network Print Server",
+      "FileVersion": "{{.Info.ProductVersion}}",
+      "InternalName": "PrinterOne",
+      "LegalCopyright": "{{.Info.Copyright}}",
+      "OriginalFilename": "PrinterOne.exe",
+      "ProductName": "{{.Info.ProductName}}",
+      "ProductVersion": "{{.Info.ProductVersion}}",
+      "Comments": "Supported languages: Русский, English, Deutsch, 简体中文, Español."
+    },
+    "0407": {
+      "CompanyName": "{{.Info.CompanyName}}",
+      "FileDescription": "PrinterOne — Netzwerk-Druckserver",
+      "FileVersion": "{{.Info.ProductVersion}}",
+      "InternalName": "PrinterOne",
+      "LegalCopyright": "{{.Info.Copyright}}",
+      "OriginalFilename": "PrinterOne.exe",
+      "ProductName": "{{.Info.ProductName}}",
+      "ProductVersion": "{{.Info.ProductVersion}}",
+      "Comments": "Unterstützte Sprachen: Русский, English, Deutsch, 简体中文, Español."
+    },
+    "0804": {
+      "CompanyName": "{{.Info.CompanyName}}",
+      "FileDescription": "PrinterOne — 网络打印服务器",
+      "FileVersion": "{{.Info.ProductVersion}}",
+      "InternalName": "PrinterOne",
+      "LegalCopyright": "{{.Info.Copyright}}",
+      "OriginalFilename": "PrinterOne.exe",
+      "ProductName": "{{.Info.ProductName}}",
+      "ProductVersion": "{{.Info.ProductVersion}}",
+      "Comments": "支持的语言：Русский、English、Deutsch、简体中文、Español。"
+    },
+    "0C0A": {
+      "CompanyName": "{{.Info.CompanyName}}",
+      "FileDescription": "PrinterOne — Servidor de impresión en red",
+      "FileVersion": "{{.Info.ProductVersion}}",
+      "InternalName": "PrinterOne",
+      "LegalCopyright": "{{.Info.Copyright}}",
+      "OriginalFilename": "PrinterOne.exe",
+      "ProductName": "{{.Info.ProductName}}",
+      "ProductVersion": "{{.Info.ProductVersion}}",
+      "Comments": "Idiomas compatibles: Русский, English, Deutsch, 简体中文, Español."
+    }
+  }
+}

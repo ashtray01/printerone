@@ -1,0 +1,20 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "PrinterOne",
+  "outputfilename": "PrinterOne",
+  "frontend:install": "npm ci",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "ashsoft ltd.",
+    "email": "ashtray@me.com"
+  },
+  "info": {
+    "companyName": "ashsoft ltd.",
+    "productName": "PrinterOne",
+    "productVersion": "1.0.0",
+    "copyright": "Copyright © 2026 ashsoft ltd. and PrinterOne contributors",
+    "comments": "Network Print Server. Supported languages: Русский, English, Deutsch, 简体中文, Español."
+  }
+}
