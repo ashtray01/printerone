@@ -1,10 +1,20 @@
 
-*.pdf
-
-# Build folders
-build/
-*.spec
-
+# Python environments and caches
+.venv/
+venv/
+env/
 __pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
 
+# Local runtime data
 logs/
+*.log
+config.json
+raw_data_*.pdf
+
+# Build artefacts
+build/
+dist/
+*.spec

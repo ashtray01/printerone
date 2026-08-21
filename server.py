@@ -190,7 +190,8 @@ class PrinterOneServer:
             "service_name": "PrinterOne",
             "service_description": "PrinterOne - Network print server for raw print data",
             "manual": False,
-            "minimize_to_tray": True
+            "minimize_to_tray": True,
+            "language": "ru"
         }
         
         # Try multiple config file locations
@@ -905,6 +906,44 @@ class AutoStartManager:
         except Exception as e:
             return False, f"Error checking startup status: {e}"
 
+LANGUAGES = {
+    "ru": "Русский",
+    "en": "English",
+    "de": "Deutsch",
+    "zh_CN": "简体中文",
+    "es": "Español",
+}
+
+TEXT = {
+    "ru": {
+        "server": "Сервер", "test": "Тест клиента", "settings": "Настройки",
+        "configuration": "Конфигурация", "printer": "Принтер", "port": "Порт",
+        "save": "Сохранить настройки", "status": "Статус сервера", "controls": "Управление",
+        "running": "● Сервер запущен", "stopped": "● Сервер остановлен", "start": "▶ Запустить сервер",
+        "stop": "■ Остановить сервер", "auto_start": "Автозапуск", "add": "Добавить", "remove": "Удалить",
+        "server_log": "Журнал сервера", "connection": "Подключение", "host": "Сервер",
+        "test_connection": "Проверить подключение", "actions": "Действия", "send_test": "Отправить тестовые данные",
+        "test_log": "Журнал теста", "application": "Приложение", "language": "Язык интерфейса",
+        "minimize": "Сворачивать в системный трей при закрытии", "about": "О программе",
+        "listening": "Прослушивание порта", "local_ip": "Локальный IP", "endpoint": "Адрес",
+        "enabled": "Автозапуск включён", "disabled": "Автозапуск выключен", "checking": "Проверка…",
+        "select_printer": "Сначала выберите принтер!", "saved": "Настройки сохранены.", "save_error": "Не удалось сохранить настройки.",
+    },
+    "en": {
+        "server": "Server", "test": "Test Client", "settings": "Settings", "configuration": "Configuration", "printer": "Printer", "port": "Port", "save": "Save Configuration", "status": "Server Status", "controls": "Controls", "running": "● Server Running", "stopped": "● Server Stopped", "start": "▶ Start Server", "stop": "■ Stop Server", "auto_start": "Auto-start", "add": "Add", "remove": "Remove", "server_log": "Server Log", "connection": "Connection", "host": "Server", "test_connection": "Test Connection", "actions": "Actions", "send_test": "Send Test Data", "test_log": "Test Log", "application": "Application", "language": "Interface language", "minimize": "Minimize to system tray when closing", "about": "About", "listening": "Listening on port", "local_ip": "Local IP", "endpoint": "Endpoint", "enabled": "Auto-start enabled", "disabled": "Auto-start disabled", "checking": "Checking…", "select_printer": "Select a printer first!", "saved": "Configuration saved.", "save_error": "Could not save configuration.",
+    },
+    "de": {
+        "server": "Server", "test": "Testclient", "settings": "Einstellungen", "configuration": "Konfiguration", "printer": "Drucker", "port": "Port", "save": "Konfiguration speichern", "status": "Serverstatus", "controls": "Steuerung", "running": "● Server läuft", "stopped": "● Server angehalten", "start": "▶ Server starten", "stop": "■ Server stoppen", "auto_start": "Autostart", "add": "Hinzufügen", "remove": "Entfernen", "server_log": "Serverprotokoll", "connection": "Verbindung", "host": "Server", "test_connection": "Verbindung testen", "actions": "Aktionen", "send_test": "Testdaten senden", "test_log": "Testprotokoll", "application": "Anwendung", "language": "Sprache", "minimize": "Beim Schließen in den Infobereich minimieren", "about": "Info", "listening": "Port wird überwacht", "local_ip": "Lokale IP", "endpoint": "Endpunkt", "enabled": "Autostart aktiviert", "disabled": "Autostart deaktiviert", "checking": "Wird geprüft…", "select_printer": "Bitte zuerst einen Drucker auswählen!", "saved": "Konfiguration gespeichert.", "save_error": "Konfiguration konnte nicht gespeichert werden.",
+    },
+    "zh_CN": {
+        "server": "服务器", "test": "测试客户端", "settings": "设置", "configuration": "配置", "printer": "打印机", "port": "端口", "save": "保存配置", "status": "服务器状态", "controls": "控制", "running": "● 服务器运行中", "stopped": "● 服务器已停止", "start": "▶ 启动服务器", "stop": "■ 停止服务器", "auto_start": "自动启动", "add": "添加", "remove": "移除", "server_log": "服务器日志", "connection": "连接", "host": "服务器", "test_connection": "测试连接", "actions": "操作", "send_test": "发送测试数据", "test_log": "测试日志", "application": "应用程序", "language": "界面语言", "minimize": "关闭时最小化到系统托盘", "about": "关于", "listening": "正在监听端口", "local_ip": "本地 IP", "endpoint": "地址", "enabled": "自动启动已启用", "disabled": "自动启动已禁用", "checking": "检查中…", "select_printer": "请先选择打印机！", "saved": "配置已保存。", "save_error": "无法保存配置。",
+    },
+    "es": {
+        "server": "Servidor", "test": "Cliente de prueba", "settings": "Ajustes", "configuration": "Configuración", "printer": "Impresora", "port": "Puerto", "save": "Guardar configuración", "status": "Estado del servidor", "controls": "Controles", "running": "● Servidor activo", "stopped": "● Servidor detenido", "start": "▶ Iniciar servidor", "stop": "■ Detener servidor", "auto_start": "Inicio automático", "add": "Añadir", "remove": "Quitar", "server_log": "Registro del servidor", "connection": "Conexión", "host": "Servidor", "test_connection": "Probar conexión", "actions": "Acciones", "send_test": "Enviar datos de prueba", "test_log": "Registro de prueba", "application": "Aplicación", "language": "Idioma de la interfaz", "minimize": "Minimizar a la bandeja al cerrar", "about": "Acerca de", "listening": "Escuchando en el puerto", "local_ip": "IP local", "endpoint": "Dirección", "enabled": "Inicio automático activado", "disabled": "Inicio automático desactivado", "checking": "Comprobando…", "select_printer": "Seleccione primero una impresora.", "saved": "Configuración guardada.", "save_error": "No se pudo guardar la configuración.",
+    },
+}
+
+
 class PrinterOneGUI:
     """Integrated GUI for PrinterOne"""
     
@@ -954,7 +993,8 @@ class PrinterOneGUI:
             
             self.root = root
             self.root.title("PrinterOne - Network Print Server")
-            self.root.geometry("1200x700")
+            self.root.geometry("760x620")
+            self.root.minsize(700, 560)
             self.root.resizable(True, True)
             
             if self.init_logger:
@@ -978,6 +1018,9 @@ class PrinterOneGUI:
             self.port_var = tk.IntVar(value=self.server.config.get("port", 9100))
             self.test_host_var = tk.StringVar(value="localhost")
             self.test_port_var = tk.IntVar(value=9100)
+            language = self.server.config.get("language", "ru")
+            self.language_var = tk.StringVar(value=language if language in LANGUAGES else "ru")
+            self.language_name_var = tk.StringVar(value=LANGUAGES[self.language_var.get()])
             
             # System tray variables
             self.tray_icon = None
@@ -992,6 +1035,8 @@ class PrinterOneGUI:
                 self.init_logger.info("Setting up application logging...")
             
             self.logger = self.setup_logging()
+
+            self.configure_theme()
             
             if self.init_logger:
                 self.init_logger.info("Application logging setup completed")
@@ -1101,6 +1146,35 @@ class PrinterOneGUI:
             return os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
         except Exception:
             return os.path.abspath(filename)
+
+    def t(self, key):
+        """Return the selected interface translation, with Russian fallback."""
+        return TEXT.get(self.language_var.get(), TEXT["ru"]).get(key, TEXT["ru"].get(key, key))
+
+    def configure_theme(self):
+        """Apply a compact, high-contrast ttk theme usable on stock Tkinter."""
+        style = ttk.Style(self.root)
+        style.theme_use("clam")
+        background, card, field, foreground, muted, accent = "#151b24", "#202936", "#111820", "#eef3f8", "#aab7c4", "#2d6cdf"
+        self.root.configure(bg=background)
+        style.configure(".", background=background, foreground=foreground, font=("Segoe UI", 9))
+        style.configure("TFrame", background=background)
+        style.configure("Card.TFrame", background=card)
+        style.configure("TLabelframe", background=card, foreground=foreground, bordercolor="#344252", relief="solid")
+        style.configure("TLabelframe.Label", background=card, foreground=foreground, font=("Segoe UI", 10, "bold"))
+        style.configure("TLabel", background=card, foreground=foreground)
+        style.configure("Muted.TLabel", background=card, foreground=muted)
+        style.configure("Status.TLabel", background=card, foreground="#4cd471", font=("Segoe UI", 13, "bold"))
+        style.configure("TButton", padding=(10, 7), font=("Segoe UI", 9, "bold"), background="#2b3746", foreground=foreground, borderwidth=0)
+        style.map("TButton", background=[("active", accent), ("disabled", "#2a3340")])
+        style.configure("Accent.TButton", background=accent, foreground="#ffffff")
+        style.map("Accent.TButton", background=[("active", "#3d7bf0")])
+        style.configure("TEntry", fieldbackground=field, foreground=foreground, insertcolor=foreground, padding=6)
+        style.configure("TCombobox", fieldbackground=field, background=field, foreground=foreground, padding=5)
+        style.map("TCombobox", fieldbackground=[("readonly", field)], foreground=[("readonly", foreground)])
+        style.configure("TNotebook", background=background, borderwidth=0)
+        style.configure("TNotebook.Tab", background="#202936", foreground=muted, padding=(14, 8), font=("Segoe UI", 9, "bold"))
+        style.map("TNotebook.Tab", background=[("selected", accent)], foreground=[("selected", "#ffffff")])
     
     def set_window_icon(self):
         """Set window icon"""
@@ -1115,102 +1189,102 @@ class PrinterOneGUI:
             print(f"Error setting window icon: {e}")
     
     def create_widgets(self):
-        """Create GUI widgets"""
-        # Main notebook for tabs
+        """Create the compact, task-focused application screens."""
+        for child in self.root.winfo_children():
+            child.destroy()
+
         notebook = ttk.Notebook(self.root)
-        notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        notebook.pack(fill=tk.BOTH, expand=True, padx=12, pady=12)
+        self.notebook = notebook
         
         # Server Management Tab
         server_frame = ttk.Frame(notebook)
-        notebook.add(server_frame, text="Server Management")
+        notebook.add(server_frame, text=self.t("server"))
         self.create_server_tab(server_frame)
         
         # Test Client Tab
         test_frame = ttk.Frame(notebook)
-        notebook.add(test_frame, text="Test Client")
+        notebook.add(test_frame, text=self.t("test"))
         self.create_test_tab(test_frame)
         
         # Settings Tab
         settings_frame = ttk.Frame(notebook)
-        notebook.add(settings_frame, text="Settings")
+        notebook.add(settings_frame, text=self.t("settings"))
         self.create_settings_tab(settings_frame)
     
     def create_server_tab(self, parent):
         """Create server management tab"""
-        # Top section - Configuration and Control
         top_frame = ttk.Frame(parent)
-        top_frame.pack(fill=tk.X, padx=10, pady=10)
-        
-        # Configuration frame
-        config_frame = ttk.LabelFrame(top_frame, text="Configuration", padding="10")
-        config_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 5))
+        top_frame.pack(fill=tk.X, padx=4, pady=4)
+        top_frame.columnconfigure(0, weight=3)
+        top_frame.columnconfigure(1, weight=2)
+
+        config_frame = ttk.LabelFrame(top_frame, text=self.t("configuration"), padding=14, style="TLabelframe")
+        config_frame.grid(row=0, column=0, sticky="nsew", padx=(0, 6))
         
         # Printer selection
-        ttk.Label(config_frame, text="Printer:").pack(anchor=tk.W)
-        printer_combo = ttk.Combobox(config_frame, textvariable=self.printer_var, width=40)
+        ttk.Label(config_frame, text=self.t("printer")).pack(anchor=tk.W)
+        printer_combo = ttk.Combobox(config_frame, textvariable=self.printer_var, state="readonly")
         printer_combo['values'] = self.server.list_printers()
         printer_combo.pack(fill=tk.X, pady=(5, 10))
         
         # Port configuration
-        ttk.Label(config_frame, text="Port:").pack(anchor=tk.W)
+        ttk.Label(config_frame, text=self.t("port")).pack(anchor=tk.W)
         port_entry = ttk.Entry(config_frame, textvariable=self.port_var, width=10)
         port_entry.pack(anchor=tk.W, pady=(5, 10))
         
         # Save config button
-        ttk.Button(config_frame, text="Save Configuration", 
-                  command=self.save_configuration).pack(fill=tk.X)
+        ttk.Button(config_frame, text=self.t("save"), style="Accent.TButton",
+                  command=self.save_configuration).pack(fill=tk.X, pady=(4, 0))
         
         # Control frame
-        control_frame = ttk.LabelFrame(top_frame, text="Server Control", padding="10")
-        control_frame.pack(side=tk.RIGHT, fill=tk.BOTH, padx=(5, 0))
+        control_frame = ttk.LabelFrame(top_frame, text=self.t("status"), padding=14)
+        control_frame.grid(row=0, column=1, sticky="nsew", padx=(6, 0))
         
         # Server status
-        self.server_status_label = ttk.Label(control_frame, text="[STOP] Server Stopped", 
-                                           font=("Arial", 12, "bold"))
-        self.server_status_label.pack(pady=10)
+        self.server_status_label = ttk.Label(control_frame, text=self.t("stopped"), style="Status.TLabel")
+        self.server_status_label.pack(anchor=tk.W, pady=(0, 7))
         
-        self.server_info_label = ttk.Label(control_frame, text="", font=("Arial", 9))
-        self.server_info_label.pack(pady=5)
+        self.server_info_label = ttk.Label(control_frame, text="", style="Muted.TLabel", justify=tk.LEFT)
+        self.server_info_label.pack(anchor=tk.W, pady=(0, 10))
         
         # Control buttons
         button_frame = ttk.Frame(control_frame)
-        button_frame.pack(pady=10)
+        button_frame.pack(fill=tk.X, pady=(2, 8))
         
-        self.start_button = ttk.Button(button_frame, text="Start Server", 
-                                      command=self.start_server, width=15)
-        self.start_button.pack(side=tk.LEFT, padx=5)
+        self.start_button = ttk.Button(button_frame, text=self.t("start"), style="Accent.TButton", command=self.start_server)
+        self.start_button.pack(fill=tk.X)
         
-        self.stop_button = ttk.Button(button_frame, text="Stop Server", 
-                                     command=self.stop_server, width=15, state="disabled")
-        self.stop_button.pack(side=tk.LEFT, padx=5)
+        self.stop_button = ttk.Button(button_frame, text=self.t("stop"), command=self.stop_server, state="disabled")
+        self.stop_button.pack(fill=tk.X, pady=(6, 0))
         
         # Auto-start section
-        autostart_frame = ttk.LabelFrame(control_frame, text="Auto-Start", padding="10")
+        autostart_frame = ttk.LabelFrame(control_frame, text=self.t("auto_start"), padding=10)
         autostart_frame.pack(fill=tk.X, pady=(10, 0))
         
-        self.autostart_status_label = ttk.Label(autostart_frame, text="Checking...")
+        self.autostart_status_label = ttk.Label(autostart_frame, text=self.t("checking"), style="Muted.TLabel")
         self.autostart_status_label.pack()
         
         autostart_button_frame = ttk.Frame(autostart_frame)
         autostart_button_frame.pack(pady=5)
         
-        self.add_autostart_button = ttk.Button(autostart_button_frame, text="Add", 
+        self.add_autostart_button = ttk.Button(autostart_button_frame, text=self.t("add"), 
                                               command=self.add_to_startup, width=12)
         self.add_autostart_button.pack(side=tk.LEFT, padx=2)
         
-        self.remove_autostart_button = ttk.Button(autostart_button_frame, text="Remove", 
+        self.remove_autostart_button = ttk.Button(autostart_button_frame, text=self.t("remove"), 
                                                  command=self.remove_from_startup, width=12)
         self.remove_autostart_button.pack(side=tk.LEFT, padx=2)
         
         # Log section
-        log_frame = ttk.LabelFrame(parent, text="Server Log", padding="10")
-        log_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=(0, 10))
+        log_frame = ttk.LabelFrame(parent, text=self.t("server_log"), padding=10)
+        log_frame.pack(fill=tk.BOTH, expand=True, padx=4, pady=(10, 4))
         
         # Create text widget with scrollbar
         log_text_frame = ttk.Frame(log_frame)
         log_text_frame.pack(fill=tk.BOTH, expand=True)
         
-        self.log_text = tk.Text(log_text_frame, height=15, font=("Consolas", 9))
+        self.log_text = tk.Text(log_text_frame, height=11, font=("Cascadia Mono", 9), bg="#111820", fg="#d8e2ec", insertbackground="#ffffff", relief=tk.FLAT, padx=8, pady=8)
         log_scrollbar = ttk.Scrollbar(log_text_frame, orient="vertical", command=self.log_text.yview)
         self.log_text.configure(yscrollcommand=log_scrollbar.set)
         
@@ -1219,47 +1293,46 @@ class PrinterOneGUI:
     
     def create_test_tab(self, parent):
         """Create test client tab"""
-        # Test configuration frame
-        test_config_frame = ttk.LabelFrame(parent, text="Test Configuration", padding="10")
-        test_config_frame.pack(fill=tk.X, padx=10, pady=10)
+        test_config_frame = ttk.LabelFrame(parent, text=self.t("connection"), padding=14)
+        test_config_frame.pack(fill=tk.X, padx=4, pady=4)
         
         config_grid = ttk.Frame(test_config_frame)
         config_grid.pack(fill=tk.X)
         
         # Host/Server input
-        ttk.Label(config_grid, text="Server:").grid(row=0, column=0, sticky=tk.W, pady=5)
+        ttk.Label(config_grid, text=self.t("host")).grid(row=0, column=0, sticky=tk.W, pady=5)
         host_entry = ttk.Entry(config_grid, textvariable=self.test_host_var, width=20)
         host_entry.grid(row=0, column=1, sticky=tk.W, padx=(10, 20), pady=5)
         
         # Port input
-        ttk.Label(config_grid, text="Port:").grid(row=0, column=2, sticky=tk.W, pady=5)
+        ttk.Label(config_grid, text=self.t("port")).grid(row=0, column=2, sticky=tk.W, pady=5)
         port_entry = ttk.Entry(config_grid, textvariable=self.test_port_var, width=10)
         port_entry.grid(row=0, column=3, sticky=tk.W, padx=(10, 0), pady=5)
         
         # Test button
-        ttk.Button(config_grid, text="Test Connection", 
-                  command=self.test_connection, width=15).grid(row=0, column=4, padx=(20, 0), pady=5)
+        ttk.Button(config_grid, text=self.t("test_connection"), style="Accent.TButton",
+                  command=self.test_connection).grid(row=0, column=4, padx=(20, 0), pady=5)
         
         # Test data options
-        test_data_frame = ttk.LabelFrame(parent, text="Test Data", padding="10")
-        test_data_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=(0, 10))
+        test_data_frame = ttk.LabelFrame(parent, text=self.t("actions"), padding=14)
+        test_data_frame.pack(fill=tk.BOTH, expand=True, padx=4, pady=(8, 4))
         
         # Test data button
         button_frame = ttk.Frame(test_data_frame)
         button_frame.pack(fill=tk.X, pady=(0, 10))
         
-        ttk.Button(button_frame, text="Send Test Data", 
-                  command=lambda: self.send_test_data("test")).pack(side=tk.LEFT, padx=5)
+        ttk.Button(button_frame, text=self.t("send_test"), style="Accent.TButton",
+                  command=lambda: self.send_test_data("test")).pack(side=tk.LEFT)
         
         # Test log area
-        log_frame = ttk.LabelFrame(test_data_frame, text="Test Log", padding="10")
+        log_frame = ttk.LabelFrame(test_data_frame, text=self.t("test_log"), padding=10)
         log_frame.pack(fill=tk.BOTH, expand=True, pady=(10, 0))
         
         # Test log text widget with scrollbar
         test_log_container = ttk.Frame(log_frame)
         test_log_container.pack(fill=tk.BOTH, expand=True)
         
-        self.test_log_text = tk.Text(test_log_container, height=8, font=("Consolas", 9), wrap=tk.WORD)
+        self.test_log_text = tk.Text(test_log_container, height=10, font=("Cascadia Mono", 9), wrap=tk.WORD, bg="#111820", fg="#d8e2ec", insertbackground="#ffffff", relief=tk.FLAT, padx=8, pady=8)
         test_log_scrollbar = ttk.Scrollbar(test_log_container, orient="vertical", command=self.test_log_text.yview)
         self.test_log_text.configure(yscrollcommand=test_log_scrollbar.set)
         
@@ -1280,13 +1353,17 @@ Test results will appear here...
     
     def create_settings_tab(self, parent):
         """Create settings tab"""
-        # Application settings
-        app_frame = ttk.LabelFrame(parent, text="Application Settings", padding="10")
-        app_frame.pack(fill=tk.X, padx=10, pady=10)
+        app_frame = ttk.LabelFrame(parent, text=self.t("application"), padding=14)
+        app_frame.pack(fill=tk.X, padx=4, pady=4)
+
+        ttk.Label(app_frame, text=self.t("language")).pack(anchor=tk.W)
+        language_combo = ttk.Combobox(app_frame, textvariable=self.language_name_var, state="readonly", values=list(LANGUAGES.values()))
+        language_combo.pack(fill=tk.X, pady=(5, 12))
+        language_combo.bind("<<ComboboxSelected>>", self.on_language_changed)
         
         # Minimize to tray option
         minimize_check = ttk.Checkbutton(app_frame, 
-                                       text="Minimize to system tray when closing window",
+                                       text=self.t("minimize"),
                                        variable=self.minimize_to_tray_var,
                                        command=self.on_minimize_option_changed)
         minimize_check.pack(anchor=tk.W, pady=5)
@@ -1297,19 +1374,35 @@ Test results will appear here...
                      font=("Arial", 8), foreground="gray").pack(anchor=tk.W)
         
         # About section
-        about_frame = ttk.LabelFrame(parent, text="About", padding="10")
-        about_frame.pack(fill=tk.X, padx=10, pady=(0, 10))
+        about_frame = ttk.LabelFrame(parent, text=self.t("about"), padding=14)
+        about_frame.pack(fill=tk.X, padx=4, pady=(8, 4))
         
         about_text = """PrinterOne - Network Print Server
 Version 1.0
-Copyright (c) 2025 xtieume@gmail.com
-GitHub: https://github.com/xtieume/PrinterOne
+Original author: Tieu M (xtieume@gmail.com)
+Original project: https://github.com/xtieume/PrinterOne
+
+Go version contributor: ashtray01 (ashtray@me.com)
+GitHub: https://github.com/ashtray01
 
 A simple TCP server that receives raw print data and sends it directly to a local printer.
 Includes a GUI management interface and test client with PDF conversion for testing."""
         
         ttk.Label(about_frame, text=about_text, justify=tk.LEFT, font=("Arial", 9)).pack(anchor=tk.W)
-    
+
+    def on_language_changed(self, _event=None):
+        """Persist the selected language and rebuild labels immediately."""
+        selected_name = self.language_name_var.get()
+        selected_code = next((code for code, name in LANGUAGES.items() if name == selected_name), "ru")
+        if selected_code == self.language_var.get():
+            return
+
+        self.language_var.set(selected_code)
+        self.server.config["language"] = selected_code
+        self.server.save_config()
+        self.create_widgets()
+        self.update_status()
+
     def log_test_message(self, message):
         """Add message to test log"""
         timestamp = time.strftime("%H:%M:%S")
@@ -1348,13 +1441,13 @@ Includes a GUI management interface and test client with PDF conversion for test
         port = self.port_var.get()
         
         if not printer_name:
-            self.log_message("[WARN] Please select a printer first!")
+            self.log_message(f"[WARN] {self.t('select_printer')}")
             return
         
         if self.server.save_config(printer_name=printer_name, port=port):
-            self.log_message("[OK] Configuration saved successfully!")
+            self.log_message(f"[OK] {self.t('saved')}")
         else:
-            self.log_message("[ERROR] Failed to save configuration!")
+            self.log_message(f"[ERROR] {self.t('save_error')}")
         
         # Update port in test client if not manually changed
         if self.test_port_var.get() == 9100 or self.test_port_var.get() == self.server.config.get("port", 9100):
@@ -1370,7 +1463,7 @@ Includes a GUI management interface and test client with PDF conversion for test
         port = self.port_var.get()
         
         if not printer_name:
-            self.log_message("[WARN] Please select a printer first!")
+            self.log_message(f"[WARN] {self.t('select_printer')}")
             return
         
         # Save current configuration
@@ -1423,20 +1516,20 @@ Includes a GUI management interface and test client with PDF conversion for test
     def update_server_status(self):
         """Update server status display"""
         if self.server.running:
-            self.server_status_label.config(text="[OK] Server Running", foreground="green")
+            self.server_status_label.config(text=self.t("running"), foreground="#4cd471")
             self.start_button.config(state="disabled")
             self.stop_button.config(state="normal")
             
             port = self.server.config.get("port", 9100)
             try:
                 local_ip = self.server.get_local_ip()
-                info_text = f"Port: {port} | IP: {local_ip}"
+                info_text = f"{self.t('listening')}: {port}\n{self.t('local_ip')}: {local_ip}\n{self.t('endpoint')}: {local_ip}:{port}"
             except:
-                info_text = f"Port: {port}"
+                info_text = f"{self.t('listening')}: {port}"
             
             self.server_info_label.config(text=info_text)
         else:
-            self.server_status_label.config(text="[STOP] Server Stopped", foreground="red")
+            self.server_status_label.config(text=self.t("stopped"), foreground="#ff6b6b")
             self.start_button.config(state="normal")
             self.stop_button.config(state="disabled")
             self.server_info_label.config(text="")
@@ -1446,11 +1539,11 @@ Includes a GUI management interface and test client with PDF conversion for test
         is_in_startup, path_or_error = AutoStartManager.check_startup_status()
         
         if is_in_startup:
-            self.autostart_status_label.config(text="[OK] Auto-start enabled", foreground="green")
+            self.autostart_status_label.config(text=self.t("enabled"), foreground="#4cd471")
             self.add_autostart_button.config(state="disabled")
             self.remove_autostart_button.config(state="normal")
         else:
-            self.autostart_status_label.config(text="[STOP] Auto-start disabled", foreground="red")
+            self.autostart_status_label.config(text=self.t("disabled"), foreground="#ff6b6b")
             self.add_autostart_button.config(state="normal")
             self.remove_autostart_button.config(state="disabled")
     
@@ -1822,48 +1915,13 @@ def run_gui_mode():
         if gui_logger:
             gui_logger.info(f"Auto-start mode: {AUTO_START_MODE}")
         
-        # Kill existing GUI instances
-        killed_count = 0
-        try:
-            if gui_logger:
-                gui_logger.info("Checking for existing GUI instances...")
-            
-            current_pid = os.getpid()
-            for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
-                try:
-                    if proc.info['pid'] == current_pid:
-                        continue
-                    
-                    process_name = proc.info['name'].lower()
-                    cmdline = ' '.join(proc.info['cmdline']) if proc.info['cmdline'] else ''
-                    
-                    # Kill other GUI instances
-                    if ((process_name == 'python.exe' and 'server.py' in cmdline and 'gui' in cmdline) or
-                        process_name == 'printerone.exe'):
-                        if gui_logger:
-                            gui_logger.info(f"Killing existing instance: {process_name} (PID: {proc.info['pid']})")
-                        proc.terminate()
-                        try:
-                            proc.wait(timeout=3)
-                        except psutil.TimeoutExpired:
-                            proc.kill()
-                        killed_count += 1
-                except (psutil.NoSuchProcess, psutil.AccessDenied):
-                    pass
-        except Exception as e:
-            error_msg = f"Error killing existing instances: {e}"
-            print(error_msg)
-            if gui_logger:
-                gui_logger.error(error_msg)
-        
-        if killed_count > 0:
-            info_msg = f"Killed {killed_count} existing GUI instance(s)"
-            print(info_msg)
-            if gui_logger:
-                gui_logger.info(info_msg)
-            time.sleep(1)
-        elif gui_logger:
-            gui_logger.info("No existing GUI instances found")
+        # Never terminate another process during GUI startup. Matching a Python
+        # command line is not reliable and can close an unrelated app (or an
+        # instance the user is actively using). Multiple GUI windows are safe;
+        # server start is already protected by the per-window running-state
+        # check.
+        if gui_logger:
+            gui_logger.info("GUI instance check skipped; no processes will be terminated")
         
         # Create and run GUI
         if gui_logger:
