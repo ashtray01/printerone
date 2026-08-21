@@ -167,7 +167,14 @@ func (a *application) runWindow() error {
 	procShowWindow.Call(hwnd, swShow)
 	procUpdateWindow.Call(hwnd)
 	if a.currentConfig().AutoStart && a.currentConfig().PrinterName != "" {
-		go func() { fatalIf(a.server.Start()); postMessage(a.hwnd, wmAppLog, 0, 0) }()
+		go func() {
+			err := a.server.Start()
+			if err == nil {
+				a.addLog("[INFO] Network endpoint: " + a.networkEndpoint())
+			}
+			fatalIf(err)
+			postMessage(a.hwnd, wmAppLog, 0, 0)
+		}()
 	}
 	a.updateStatus()
 	var msg message
@@ -373,10 +380,9 @@ func (a *application) updateStatus() {
 	if a.controls.status == 0 {
 		return
 	}
-	cfg := a.currentConfig()
 	text := a.text()
 	if a.server != nil && a.server.Running() {
-		setText(a.controls.status, fmt.Sprintf("%s: %s:%d", text.Running, cfg.ListenAddress, cfg.Port))
+		setText(a.controls.status, fmt.Sprintf("%s: %s", text.Running, a.networkEndpoint()))
 		setText(a.controls.footer, "  "+text.ServerStarted)
 		setText(a.controls.start, text.Started)
 		setEnabled(a.controls.start, false)

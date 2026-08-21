@@ -175,8 +175,14 @@ func (a *application) startServer() error {
 	if err := a.server.Start(); err != nil {
 		return err
 	}
+	a.addLog("[INFO] Network endpoint: " + a.networkEndpoint())
 	a.updateStatus()
 	return nil
+}
+
+func (a *application) networkEndpoint() string {
+	cfg := a.currentConfig()
+	return net.JoinHostPort(displayListenAddress(cfg.ListenAddress), strconv.Itoa(cfg.Port))
 }
 
 func (a *application) clearStaleJobs() error {

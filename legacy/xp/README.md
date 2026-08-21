@@ -55,6 +55,10 @@ can be passed with `-GoRoot`. The script stages the source in a temporary GOPATH
 - Logs: `%APPDATA%\PrinterOne-XP\logs\printerone-xp-*.log`
 - Default endpoint: `0.0.0.0:9100`
 
+`0.0.0.0` is the bind address, not a client destination. While the server is
+running, the status line and session log show the detected LAN IPv4 endpoint
+that other computers should use.
+
 The XP build intentionally does not change Windows Firewall settings. If the
 firewall is enabled, allow inbound TCP traffic for the configured port manually.
 
