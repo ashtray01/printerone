@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="printer.png" width="88" alt="PrinterOne logo">
+  <img src="printer.png" alt="PrinterOne logo">
   <h1>PrinterOne</h1>
   <p><strong>Компактный сетевой RAW-сервер печати для Windows</strong></p>
 
