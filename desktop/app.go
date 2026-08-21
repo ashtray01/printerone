@@ -191,5 +191,5 @@ func (a *App) SendTestData(host string, port int) (int, error) {
 }
 
 func (a *App) Version() string {
-	return fmt.Sprintf("1.0.2 (Go)")
+	return fmt.Sprintf("1.0.3 (Go)")
 }

@@ -33,13 +33,14 @@ jobs:
           cache: npm
           cache-dependency-path: desktop/frontend/package-lock.json
 
-      - name: Install frontend dependencies
-        working-directory: desktop/frontend
-        run: npm ci
+      - name: Install Wails
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@v2.15.0
 
-      - name: Build frontend
-        working-directory: desktop/frontend
-        run: npm run build
+      # Wails generates frontend/wailsjs before invoking Vite and creates
+      # frontend/dist, both of which are intentionally excluded from Git.
+      - name: Build application
+        working-directory: desktop
+        run: wails build -clean -trimpath -o PrinterOne.exe -webview2 browser
 
       - name: Test core
         run: go test ./...
@@ -47,13 +48,6 @@ jobs:
       - name: Test desktop
         working-directory: desktop
         run: go test ./...
-
-      - name: Install Wails
-        run: go install github.com/wailsapp/wails/v2/cmd/wails@v2.15.0
-
-      - name: Build application
-        working-directory: desktop
-        run: wails build -clean -trimpath -o PrinterOne.exe -webview2 browser
 
       - name: Upload executable
         uses: actions/upload-artifact@v4
