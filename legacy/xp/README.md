@@ -1,7 +1,8 @@
-# PrinterOne for Windows XP
+# PrinterOne for Windows XP and Windows 7
 
-This directory is an isolated Windows XP SP3 (x86) implementation. It does not
-import Wails or the modern desktop module and has no third-party dependencies.
+This directory contains the isolated native edition for Windows XP SP3 (x86)
+and Windows 7. It does not import Wails or the modern desktop module and has no
+third-party dependencies.
 
 The executable contains its application icon as a native 386 PE resource. The
 same icon is used by Explorer, the main window and the notification area.
@@ -23,6 +24,17 @@ PrinterOne XP saves the language and immediately restarts to apply it.
 ### Verified RAW printing on Windows XP SP3
 
 ![PrinterOne XP receiving and printing a RAW job over the network](../../assets/screenshots/windows-xp-raw-printing.png)
+
+## Running the release locally
+
+Download `PrinterOne-XP-SP3-x86.exe` from the GitHub Release and run it directly.
+The legacy executable is portable and does not require WebView2, .NET, Node.js or
+additional DLLs. Use this release build for Windows XP and Windows 7 testing.
+
+Configuration and logs are created under `%APPDATA%\PrinterOne-XP`; they are not
+written next to the executable. A binary produced by `build-local.ps1` with a
+newer Go compiler is only intended for a quick smoke test on the development PC
+and must not be treated as XP-compatible.
 
 ## Local development build
 

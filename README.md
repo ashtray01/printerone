@@ -5,9 +5,15 @@
 
   [![CI](https://github.com/ashtray01/printerone/actions/workflows/ci.yml/badge.svg)](https://github.com/ashtray01/printerone/actions/workflows/ci.yml)
   [![Windows XP](https://github.com/ashtray01/printerone/actions/workflows/legacy-xp.yml/badge.svg)](https://github.com/ashtray01/printerone/actions/workflows/legacy-xp.yml)
-  [![Windows](https://img.shields.io/badge/platform-XP%20SP3%20%7C%2010%20%7C%2011-0078D4?logo=windows)](https://github.com/ashtray01/printerone/releases)
+  [![Windows](https://img.shields.io/badge/platform-XP%20SP3%20%7C%207%20%7C%2010%20%7C%2011-0078D4?logo=windows)](https://github.com/ashtray01/printerone/releases)
   [![Go](https://img.shields.io/badge/Go-1.26-00ADD8?logo=go)](https://go.dev/)
   [![License](https://img.shields.io/badge/license-MIT-2ea44f)](LICENSE)
+</div>
+
+<div align="center">
+  <img src="assets/screenshots/printerone-xp-desktop.png" width="820" alt="PrinterOne на Windows XP SP3">
+  <br>
+  <sub>Нативная legacy-редакция PrinterOne на Windows XP SP3</sub>
 </div>
 
 PrinterOne принимает задания по TCP из локальной сети и передаёт их без
@@ -15,7 +21,10 @@ PrinterOne принимает задания по TCP из локальной с
 термопринтеров, принтеров этикеток, кассового ПО и устройств, отправляющих
 ZPL, EPL, TSPL, ESC/POS или другой RAW-поток.
 
-![Главный экран PrinterOne](assets/screenshots/server.png)
+| Редакция | Поддерживаемые системы | Готовый файл |
+|:---|:---|:---|
+| **Legacy** | Windows XP SP3 и Windows 7 | `PrinterOne-XP-SP3-x86.exe` |
+| **Modern** | Windows 10 и Windows 11 | `PrinterOne.exe` |
 
 ## Возможности
 
@@ -30,13 +39,17 @@ ZPL, EPL, TSPL, ESC/POS или другой RAW-поток.
 - русский, английский, немецкий, испанский и упрощённый китайский интерфейс;
 - один переносимый `PrinterOne.exe`, не требующий Python или Node.js.
 
+### Современный интерфейс Windows 10/11
+
+![Главный экран PrinterOne для Windows 10 и 11](assets/screenshots/server.png)
+
 | Проверка подключения | Настройки |
 |:---:|:---:|
 | ![Проверка подключения](assets/screenshots/test-client.png) | ![Настройки](assets/screenshots/settings.png) |
 
-## Windows XP SP3
+## Windows XP SP3 и Windows 7
 
-Для Windows XP SP3 x86 выпускается отдельный нативный
+Для Windows XP SP3 и Windows 7 выпускается отдельный нативный
 `PrinterOne-XP-SP3-x86.exe`. Он не использует Wails, WebView2, .NET или внешние
 DLL, собирается Go 1.10.8 и хранит настройки отдельно в
 `%APPDATA%\PrinterOne-XP`. Серверная логика, лимиты, очередь, RAW Winspool,
@@ -53,7 +66,7 @@ Spooler → Generic / Text Only`. Настройка Windows Firewall в XP вы
 ## Быстрый старт
 
 1. Скачайте `PrinterOne.exe` для Windows 10/11 или
-   `PrinterOne-XP-SP3-x86.exe` для Windows XP из
+   `PrinterOne-XP-SP3-x86.exe` для Windows XP/7 из
    [Releases](https://github.com/ashtray01/printerone/releases).
 2. Запустите приложение и выберите локальный принтер.
 3. Сохраните конфигурацию.
@@ -92,7 +105,7 @@ with socket.create_connection(("192.168.1.25", 9100), timeout=5) as connection:
 - Windows 10/11 x64 и установленный
   [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/)
   для основной сборки `PrinterOne.exe`; либо
-- Windows XP SP3 x86 для автономной legacy-сборки
+- Windows XP SP3 x86 или Windows 7 для автономной legacy-сборки
   `PrinterOne-XP-SP3-x86.exe`;
 - хотя бы один локальный или сетевой принтер в Windows.
 
