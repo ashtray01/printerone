@@ -27,7 +27,7 @@ Object.assign(dictionaries.en,{systemStartup:'Start with Windows',systemStartupH
 Object.assign(dictionaries.de,{systemStartup:'Mit Windows starten',systemStartupHint:'PrinterOne nach der Windows-Anmeldung starten.'});
 Object.assign(dictionaries.es,{systemStartup:'Iniciar con Windows',systemStartupHint:'Iniciar PrinterOne al entrar en Windows.'});
 Object.assign(dictionaries.zh_CN,{systemStartup:'随 Windows 启动',systemStartupHint:'登录 Windows 后启动 PrinterOne。'});
-let state,printers=[],page='server',appVersion='1.0.3',logs=[],testLogs=[],firewallOpen=false,firewallKnown=false,firewallPort=0;
+let state,printers=[],page='server',appVersion='1.0.0',logs=[],testLogs=[],firewallOpen=false,firewallKnown=false,firewallPort=0;
 const tr=k=>(dictionaries[state?.config?.language]||dictionaries.en)[k]||dictionaries.en[k]||k;
 const esc=(v='')=>String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const icon=n=>({server:'<svg viewBox="0 0 24 24"><path d="M5 5h14v5H5zM5 14h14v5H5zM8 7.5h.01M8 16.5h.01"/></svg>',settings:'<svg viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/><path d="M19 13.5v-3l-2-.7-.6-1.4.9-1.9-2.1-2.1-1.9.9-1.4-.6-.7-2h-3l-.7 2-1.4.6-1.9-.9-2.1 2.1.9 1.9-.6 1.4-2 .7v3l2 .7.6 1.4-.9 1.9 2.1 2.1 1.9-.9 1.4.6.7 2h3l.7-2 1.4-.6 1.9.9 2.1-2.1-.9-1.9.6-1.4z"/></svg>',printer:'<svg viewBox="0 0 24 24"><path d="M7 9V4h10v5M7 17H4v-7h16v7h-3M7 14h10v6H7z"/></svg>',refresh:'<svg viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M18 11a7 7 0 0 0-12-3L4 12m2 1a7 7 0 0 0 12 3l2-4"/></svg>'}[n]||'');

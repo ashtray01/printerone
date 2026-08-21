@@ -49,11 +49,19 @@ jobs:
         working-directory: desktop
         run: go test ./...
 
+      - name: Generate SHA-256 checksum
+        shell: pwsh
+        run: |
+          $hash = (Get-FileHash "desktop/build/bin/PrinterOne.exe" -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  PrinterOne.exe" | Out-File "desktop/build/bin/PrinterOne.exe.sha256" -Encoding ascii -NoNewline
+
       - name: Upload executable
         uses: actions/upload-artifact@v4
         with:
           name: PrinterOne-windows-amd64
-          path: desktop/build/bin/PrinterOne.exe
+          path: |
+            desktop/build/bin/PrinterOne.exe
+            desktop/build/bin/PrinterOne.exe.sha256
           if-no-files-found: error
 
       - name: Publish GitHub Release
@@ -64,6 +72,7 @@ jobs:
         run: >-
           gh release create "${{ github.ref_name }}"
           "desktop/build/bin/PrinterOne.exe#PrinterOne.exe"
+          "desktop/build/bin/PrinterOne.exe.sha256#PrinterOne.exe.sha256"
           --repo "${{ github.repository }}"
           --title "PrinterOne ${{ github.ref_name }}"
           --generate-notes
