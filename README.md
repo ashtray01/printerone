@@ -4,7 +4,8 @@
   <p><strong>Компактный сетевой RAW-сервер печати для Windows</strong></p>
 
   [![CI](https://github.com/ashtray01/printerone/actions/workflows/ci.yml/badge.svg)](https://github.com/ashtray01/printerone/actions/workflows/ci.yml)
-  [![Windows](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D4?logo=windows)](https://github.com/ashtray01/printerone/releases)
+  [![Windows XP](https://github.com/ashtray01/printerone/actions/workflows/legacy-xp.yml/badge.svg)](https://github.com/ashtray01/printerone/actions/workflows/legacy-xp.yml)
+  [![Windows](https://img.shields.io/badge/platform-XP%20SP3%20%7C%2010%20%7C%2011-0078D4?logo=windows)](https://github.com/ashtray01/printerone/releases)
   [![Go](https://img.shields.io/badge/Go-1.26-00ADD8?logo=go)](https://go.dev/)
   [![License](https://img.shields.io/badge/license-MIT-2ea44f)](LICENSE)
 </div>
@@ -33,9 +34,27 @@ ZPL, EPL, TSPL, ESC/POS или другой RAW-поток.
 |:---:|:---:|
 | ![Проверка подключения](assets/screenshots/test-client.png) | ![Настройки](assets/screenshots/settings.png) |
 
+## Windows XP SP3
+
+Для Windows XP SP3 x86 выпускается отдельный нативный
+`PrinterOne-XP-SP3-x86.exe`. Он не использует Wails, WebView2, .NET или внешние
+DLL, собирается Go 1.10.8 и хранит настройки отдельно в
+`%APPDATA%\PrinterOne-XP`. Серверная логика, лимиты, очередь, RAW Winspool,
+автозапуск, tray, журнал и тестовая печать сохранены. Интерфейс поддерживает
+русский, английский, немецкий и испанский языки. Микро-кнопка `OK` рядом со
+списком сохраняет язык и немедленно перезапускает приложение.
+
+![Проверенная RAW-печать по сети в Windows XP SP3](assets/screenshots/windows-xp-raw-printing.png)
+
+На снимке показана проверенная цепочка `TCP-клиент → PrinterOne XP → Windows
+Spooler → Generic / Text Only`. Настройка Windows Firewall в XP выполняется
+вручную.
+
 ## Быстрый старт
 
-1. Скачайте `PrinterOne.exe` из [Releases](https://github.com/ashtray01/printerone/releases).
+1. Скачайте `PrinterOne.exe` для Windows 10/11 или
+   `PrinterOne-XP-SP3-x86.exe` для Windows XP из
+   [Releases](https://github.com/ashtray01/printerone/releases).
 2. Запустите приложение и выберите локальный принтер.
 3. Сохраните конфигурацию.
 4. В настройках Firewall нажмите **Проверить**, затем при необходимости
@@ -70,8 +89,11 @@ with socket.create_connection(("192.168.1.25", 9100), timeout=5) as connection:
 
 Для запуска готовой сборки:
 
-- Windows 10 или Windows 11 x64;
-- установленный [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/);
+- Windows 10/11 x64 и установленный
+  [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/)
+  для основной сборки `PrinterOne.exe`; либо
+- Windows XP SP3 x86 для автономной legacy-сборки
+  `PrinterOne-XP-SP3-x86.exe`;
 - хотя бы один локальный или сетевой принтер в Windows.
 
 Для разработки дополнительно нужны Go, Node.js и
@@ -95,6 +117,15 @@ wails build -clean -trimpath -o PrinterOne.exe -webview2 browser
 Готовый файл появится в `desktop/build/bin/PrinterOne.exe`. Для разработки с
 горячей перезагрузкой используйте `wails dev` из каталога `desktop`.
 
+XP-сборка изолирована в отдельном модуле и собирается официальным Go 1.10.8:
+
+```powershell
+./legacy/xp/build-xp.ps1 -GoRoot C:\Go1108
+```
+
+Результаты появятся в `legacy/xp/build/`: EXE и файл SHA-256. Подробности — в
+[legacy/xp/README.md](legacy/xp/README.md).
+
 ## Конфигурация и журналы
 
 Конфигурация сохраняется атомарно для текущего пользователя:
@@ -114,6 +145,9 @@ HKCU\Software\Microsoft\Windows\CurrentVersion\Run
 ```text
 %APPDATA%\PrinterOne\logs\printerone-YYYYMMDD-HHMMSS.log
 ```
+
+XP-редакция не смешивает runtime-данные с основной версией и использует
+`%APPDATA%\PrinterOne-XP`.
 
 Журнал содержит адрес клиента, размер и предполагаемый формат задания, выбранный
 драйвер, ID и статусы Windows spooler, но не сохраняет содержимое задания. Буфер
@@ -192,6 +226,7 @@ printerone/
 │   ├── instance/            защита от повторного запуска
 │   ├── printerwin/          адаптер Windows spooler
 │   └── receiver/            ограниченный TCP-сервер и события
+├── legacy/xp/               автономная Windows XP SP3 x86 редакция
 ├── assets/screenshots/      актуальные скриншоты
 └── docs/                    архитектура и безопасность
 ```
@@ -202,7 +237,7 @@ printerone/
 ## Участие в разработке
 
 Issues и pull requests приветствуются. Перед отправкой изменений выполните
-тесты обоих Go-модулей и production-сборку Wails. Не прикладывайте реальные
+тесты Go-модулей, XP-сборку и production-сборку Wails. Не прикладывайте реальные
 задания печати, конфигурацию пользователя или журналы из рабочей сети.
 
 ## Авторы

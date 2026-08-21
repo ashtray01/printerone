@@ -69,11 +69,15 @@ jobs:
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: >-
-          gh release create "${{ github.ref_name }}"
-          "desktop/build/bin/PrinterOne.exe#PrinterOne.exe"
-          "desktop/build/bin/PrinterOne.exe.sha256#PrinterOne.exe.sha256"
-          --repo "${{ github.repository }}"
-          --title "PrinterOne ${{ github.ref_name }}"
-          --generate-notes
-          --verify-tag
+        run: |
+          gh release view "${{ github.ref_name }}" --repo "${{ github.repository }}" 2>$null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create "${{ github.ref_name }}" --repo "${{ github.repository }}" --title "PrinterOne ${{ github.ref_name }}" --generate-notes --verify-tag
+            if ($LASTEXITCODE -ne 0) {
+              gh release view "${{ github.ref_name }}" --repo "${{ github.repository }}"
+            }
+          }
+          gh release upload "${{ github.ref_name }}" `
+            "desktop/build/bin/PrinterOne.exe#PrinterOne.exe" `
+            "desktop/build/bin/PrinterOne.exe.sha256#PrinterOne.exe.sha256" `
+            --repo "${{ github.repository }}" --clobber

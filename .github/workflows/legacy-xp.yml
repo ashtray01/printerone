@@ -1,0 +1,72 @@
+name: Windows XP Legacy
+
+on:
+  push:
+    branches: [master, main]
+    tags: ["v*"]
+    paths:
+      - "legacy/xp/**"
+      - "printer.ico"
+      - ".github/workflows/legacy-xp.yml"
+  pull_request:
+    paths:
+      - "legacy/xp/**"
+      - "printer.ico"
+      - ".github/workflows/legacy-xp.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows-xp-x86:
+    runs-on: windows-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go 1.10.8
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.10.8
+          cache: false
+
+      - name: Verify embedded icon resource
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "legacy/xp/cmd/printerone-xp/rsrc_windows_386.syso")) {
+            throw "The required 386 icon resource is missing"
+          }
+
+      - name: Build and test XP edition
+        shell: pwsh
+        run: ./legacy/xp/build-xp.ps1 -GoRoot $env:GOROOT
+
+      - name: Upload XP executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: PrinterOne-windows-xp-sp3-x86
+          path: |
+            legacy/xp/build/PrinterOne-XP-SP3-x86.exe
+            legacy/xp/build/PrinterOne-XP-SP3-x86.exe.sha256
+          if-no-files-found: error
+
+      - name: Publish XP release assets
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release view "${{ github.ref_name }}" --repo "${{ github.repository }}" 2>$null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create "${{ github.ref_name }}" --repo "${{ github.repository }}" --title "PrinterOne ${{ github.ref_name }}" --generate-notes --verify-tag
+            if ($LASTEXITCODE -ne 0) {
+              gh release view "${{ github.ref_name }}" --repo "${{ github.repository }}"
+            }
+          }
+          gh release upload "${{ github.ref_name }}" `
+            "legacy/xp/build/PrinterOne-XP-SP3-x86.exe#PrinterOne-XP-SP3-x86.exe" `
+            "legacy/xp/build/PrinterOne-XP-SP3-x86.exe.sha256#PrinterOne-XP-SP3-x86.exe.sha256" `
+            --repo "${{ github.repository }}" --clobber

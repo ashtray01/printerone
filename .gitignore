@@ -20,6 +20,11 @@ Thumbs.db
 /*-cache/
 /.*-cache/
 /desktop/build/bin/
+/legacy/xp/.cache/
+/legacy/xp/.gocache/
+/legacy/xp/.tmp/
+/legacy/xp/.toolchains/
+/legacy/xp/build/
 
 # Frontend dependencies and generated output
 /desktop/frontend/node_modules/
