@@ -10,6 +10,20 @@ The compact native interface supports Русский, English, Deutsch and Espa�
 Select a language next to the port field and click the adjacent `OK` button.
 PrinterOne XP saves the language and immediately restarts to apply it.
 
+## Screenshots
+
+### Compact interface
+
+![PrinterOne XP compact interface in Russian](../../assets/screenshots/printerone-xp-interface.png)
+
+### Running on Windows XP SP3
+
+![PrinterOne XP running on a Windows XP SP3 desktop](../../assets/screenshots/printerone-xp-desktop.png)
+
+### Verified RAW printing on Windows XP SP3
+
+![PrinterOne XP receiving and printing a RAW job over the network](../../assets/screenshots/windows-xp-raw-printing.png)
+
 ## Local development build
 
 Run `./build-local.ps1`. This validates the source and produces a 32-bit Windows
