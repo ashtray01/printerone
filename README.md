@@ -197,6 +197,7 @@ printerone/
 ```
 
 Подробнее: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+Ближайшие технические планы: [docs/ROADMAP.md](docs/ROADMAP.md).
 
 ## Участие в разработке
 
